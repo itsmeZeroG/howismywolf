@@ -15,19 +15,17 @@ public class HowIsMyWolfClient implements ClientModInitializer {
 			if (client.player == null)
 				return;
 
-			Wolf targetWolf = null;
-			if (client.crosshairPickEntity instanceof Wolf wolf && wolf.isTame()) {
-				targetWolf = wolf;
-			}
+			Wolf targetWolf = (client.crosshairPickEntity instanceof Wolf wolf && wolf.isTame()) ? wolf : null;
 
-			if (targetWolf != lastWolf) {
-				lastWolf = targetWolf;
+			if (lastWolf == targetWolf)
+				return;
+			lastWolf = targetWolf;
 
-				if (targetWolf != null) {
-					HowIsMyWolf.LOGGER.info("Loooking at {} - {}/{} HP", targetWolf.getDisplayName().getString(),
-							targetWolf.getHealth(), targetWolf.getMaxHealth());
-				}
-			}
+			if (targetWolf == null)
+				return;
+
+			HowIsMyWolf.LOGGER.info("Loooking at {} - {}/{} HP", targetWolf.getDisplayName().getString(),
+					targetWolf.getHealth(), targetWolf.getMaxHealth());
 		});
 	}
 }
