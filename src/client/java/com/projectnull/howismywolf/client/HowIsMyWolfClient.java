@@ -24,8 +24,8 @@ public class HowIsMyWolfClient implements ClientModInitializer {
 			if (targetWolf == null)
 				return;
 
-			HowIsMyWolf.LOGGER.info("Loooking at {} - {}/{} HP", targetWolf.getDisplayName().getString(),
-					targetWolf.getHealth(), targetWolf.getMaxHealth());
+			WolfInfo info = WolfInfo.from(targetWolf, client);
+			HowIsMyWolf.LOGGER.info("{}", info);
 		});
 	}
 }
