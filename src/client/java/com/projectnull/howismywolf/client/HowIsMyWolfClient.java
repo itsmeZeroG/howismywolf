@@ -9,9 +9,14 @@ import net.minecraft.world.entity.animal.wolf.Wolf;
 
 public class HowIsMyWolfClient implements ClientModInitializer {
 	private static WolfInfo currentWolfInfo;
+	private static Wolf currentWolf;
 
 	public static WolfInfo currentWolfInfo() {
 		return currentWolfInfo;
+	}
+
+	public static Wolf currentWolf() {
+		return currentWolf;
 	}
 
 	@Override
@@ -19,11 +24,12 @@ public class HowIsMyWolfClient implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (client.player == null) {
 				currentWolfInfo = null;
+				currentWolf = null;
 				return;
 			}
 
-			Wolf targetWolf = (client.crosshairPickEntity instanceof Wolf wolf && wolf.isTame()) ? wolf : null;
-			currentWolfInfo = targetWolf != null ? WolfInfo.from(targetWolf, client) : null;
+			currentWolf = (client.crosshairPickEntity instanceof Wolf wolf && wolf.isTame()) ? wolf : null;
+			currentWolfInfo = currentWolf != null ? WolfInfo.from(currentWolf, client) : null;
 		});
 
 		HudElementRegistry.attachElementBefore(VanillaHudElements.CHAT,
