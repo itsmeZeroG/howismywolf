@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.animal.wolf.Wolf;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 public final class WolfPanelRenderer {
@@ -25,6 +26,9 @@ public final class WolfPanelRenderer {
     private static final int HEART_ROW_HEIGHT = HEART_SIZE + 1;
     private static final int HEARTS_PER_ROW = 10;
     private static final int HEALTH_PER_HEART = 2;
+
+    private static final int ITEM_SIZE = 16;
+    private static final int ITEM_TEXT_GAP = 4;
 
     private static final int PANEL_PADDING = 4;
     private static final int LINE_SPACING = 2;
@@ -63,10 +67,21 @@ public final class WolfPanelRenderer {
         int heartsWidth = Math.min(heartCount, HEARTS_PER_ROW) * HEART_SPACING + (HEART_SIZE - HEART_SPACING);
         int heartsHeight = heartRows * HEART_ROW_HEIGHT;
 
+        ItemStack armor = info.armor();
+        boolean hasArmor = !armor.isEmpty();
+        String durability = "";
+        if (hasArmor && armor.isDamageableItem()) {
+            int remaining = armor.getMaxDamage() - armor.getDamageValue();
+            durability = remaining + " / " + armor.getMaxDamage();
+        }
+        int armorRowWidth = hasArmor ? ITEM_SIZE + ITEM_TEXT_GAP + font.width(durability) : 0;
+        int armorRowHeight = hasArmor ? ITEM_SIZE + SECTION_GAP : 0;
+
         int lineHeight = font.lineHeight + LINE_SPACING;
         int titleRowWidth = font.width(title) + (hasOwner ? OWNER_GAP + font.width(owner) : 0);
-        int contentWidth = Math.max(titleRowWidth, Math.max(heartsWidth, font.width(state)));
-        int contentHeight = lineHeight + heartsHeight + SECTION_GAP + font.lineHeight;
+        int contentWidth = Math.max(titleRowWidth,
+                Math.max(armorRowWidth, Math.max(heartsWidth, font.width(state))));
+        int contentHeight = lineHeight + heartsHeight + SECTION_GAP + armorRowHeight + font.lineHeight;
 
         int boxWidth = contentWidth + PANEL_PADDING * 2;
         int boxHeight = contentHeight + PANEL_PADDING * 2;
@@ -108,6 +123,15 @@ public final class WolfPanelRenderer {
             }
         }
         y += heartsHeight + SECTION_GAP;
+
+        if (hasArmor) {
+            g.item(armor, textX, y);
+            if (!durability.isEmpty()) {
+                int textY = y + (ITEM_SIZE - font.lineHeight) / 2;
+                g.text(font, durability, textX + ITEM_SIZE + ITEM_TEXT_GAP, textY, INFO_TEXT_COLOR, true);
+            }
+            y += armorRowHeight;
+        }
 
         g.text(font, state, textX, y, INFO_TEXT_COLOR, true);
     }
