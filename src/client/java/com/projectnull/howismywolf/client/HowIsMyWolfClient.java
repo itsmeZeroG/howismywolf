@@ -8,8 +8,12 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.animal.wolf.Wolf;
 
 public class HowIsMyWolfClient implements ClientModInitializer {
+	private static final int LINGER_TICKS = 15;
+
 	private static WolfInfo currentWolfInfo;
 	private static Wolf currentWolf;
+
+	private static int lingerTicksLeft;
 
 	public static WolfInfo currentWolfInfo() {
 		return currentWolfInfo;
@@ -22,13 +26,24 @@ public class HowIsMyWolfClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (client.player == null) {
+			if (client.player == null || client.level == null) {
 				currentWolfInfo = null;
 				currentWolf = null;
+				lingerTicksLeft = 0;
 				return;
 			}
 
-			currentWolf = (client.crosshairPickEntity instanceof Wolf wolf && wolf.isTame()) ? wolf : null;
+			if (client.crosshairPickEntity instanceof Wolf wolf && wolf.isTame()) {
+				currentWolf = wolf;
+				lingerTicksLeft = LINGER_TICKS;
+			} else if (lingerTicksLeft > 0) {
+				lingerTicksLeft--;
+			}
+
+			if (currentWolf != null && (lingerTicksLeft == 0 || currentWolf.isRemoved())) {
+				currentWolf = null;
+			}
+
 			currentWolfInfo = currentWolf != null ? WolfInfo.from(currentWolf, client) : null;
 		});
 
