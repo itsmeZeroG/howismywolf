@@ -1,5 +1,7 @@
 package com.projectnull.howismywolf.client;
 
+import com.projectnull.howismywolf.HowIsMyWolf;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.wolf.Wolf;
@@ -20,7 +22,7 @@ public record WolfInfo(
 
     public static WolfInfo from(Wolf wolf, Minecraft mc) {
         WolfState state = wolf.isAngry() ? WolfState.ANGRY
-                : wolf.isOrderedToSit() ? WolfState.SITTING : WolfState.FOLLOWING;
+                : wolf.isInSittingPose() ? WolfState.SITTING : WolfState.FOLLOWING;
 
         return new WolfInfo(wolf.getDisplayName().getString(), resolveOwnerName(wolf, mc), wolf.getHealth(),
                 wolf.getMaxHealth(), wolf.getCollarColor(), wolf.getBodyArmorItem(), state);
