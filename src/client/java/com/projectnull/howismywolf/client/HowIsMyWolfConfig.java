@@ -22,7 +22,7 @@ public final class HowIsMyWolfConfig {
     public boolean showHearts = true;
     public boolean showArmor = true;
     public boolean showState = true;
-    public float lingerSeconds = 0.75f;
+    public int lingerTicks = 15;// 0.75 s;
     public int panelOffsetX = 32;
     public StyleType style = StyleType.VANILLA;
 
@@ -32,10 +32,6 @@ public final class HowIsMyWolfConfig {
 
     public static HowIsMyWolfConfig get() {
         return instance;
-    }
-
-    public int lingerTicks() {
-        return Math.round(lingerSeconds * 20);
     }
 
     public static void load() {
@@ -63,7 +59,7 @@ public final class HowIsMyWolfConfig {
     }
 
     private void sanitize() {
-        lingerSeconds = Math.clamp(lingerSeconds, 0.0f, 10.0f);
+        lingerTicks = Math.clamp(lingerTicks, 0, 200);
         panelOffsetX = Math.clamp(panelOffsetX, 0, 128);
 
         if (style == null) {

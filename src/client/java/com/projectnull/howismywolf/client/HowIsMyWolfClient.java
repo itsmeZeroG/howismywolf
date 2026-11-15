@@ -37,7 +37,7 @@ public class HowIsMyWolfClient implements ClientModInitializer {
 
 			if (looking) {
 				currentWolf = (Wolf) client.crosshairPickEntity;
-				lingerTicksLeft = HowIsMyWolfConfig.get().lingerTicks();
+				lingerTicksLeft = HowIsMyWolfConfig.get().lingerTicks;
 			} else if (lingerTicksLeft > 0) {
 				lingerTicksLeft--;
 			}

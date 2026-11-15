@@ -1,0 +1,14 @@
+{
+  "config.how-is-my-wolf.title": "How Is My Wolf Settings",
+  "config.how-is-my-wolf.category.general": "General",
+  "config.how-is-my-wolf.show_owner": "Show owner name",
+  "config.how-is-my-wolf.show_hearts": "Show health hearts",
+  "config.how-is-my-wolf.show_armor": "Show armor",
+  "config.how-is-my-wolf.show_state": "Show state (sitting, following, angry)",
+  "config.how-is-my-wolf.linger": "Keep panel after looking away",
+  "config.how-is-my-wolf.linger.tooltip": "How long the panel stays after you look away. 0 hides it immediately. The slider moves in steps of 0.05 s (one game tick).",
+  "config.how-is-my-wolf.panel_offset_x": "Panel distance from wolf",
+  "config.how-is-my-wolf.panel_offset_x.tooltip": "How far to the right of the wolf the panel appears, in pixels.",
+  "config.how-is-my-wolf.style": "Panel style"
+}
+
