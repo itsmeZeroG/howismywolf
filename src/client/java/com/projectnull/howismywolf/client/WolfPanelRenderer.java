@@ -24,11 +24,9 @@ public final class WolfPanelRenderer {
     private static final int ITEM_SIZE = 16;
     private static final int ITEM_TEXT_GAP = 4;
 
-    private static final int LINE_SPACING = 2;
     private static final int SECTION_GAP = 2;
     private static final int OWNER_GAP = 6;
 
-    private static final int PANEL_OFFSET_X = 32;
     private static final int SCREEN_MARGIN = 2;
     private static final double ANCHOR_HEIGHT_FRACTION = 0.5; // 0 = feet, 1 = top of the wolf
 
@@ -45,11 +43,12 @@ public final class WolfPanelRenderer {
         Minecraft mc = Minecraft.getInstance();
         Font font = mc.font;
 
+        HowIsMyWolfConfig config = HowIsMyWolfConfig.get();
         PanelStyle style = PanelStyles.current();
         int padding = style.padding();
 
         String title = info.name();
-        String owner = info.ownerName().isEmpty() ? "" : "(" + info.ownerName() + ")";
+        String owner = (config.showOwner && !info.ownerName().isEmpty()) ? "(" + info.ownerName() + ")" : "";
         boolean hasOwner = !owner.isEmpty();
         String state = switch (info.state()) {
             case ANGRY -> "Angry";
@@ -57,27 +56,36 @@ public final class WolfPanelRenderer {
             case FOLLOWING -> "Following";
         };
 
+        boolean showHearts = config.showHearts;
         int hp = (int) Math.ceil(info.health());
         int heartCount = (int) Math.ceil(info.maxHealth() / HEALTH_PER_HEART);
         int heartRows = (heartCount + HEARTS_PER_ROW - 1) / HEARTS_PER_ROW;
-        int heartsWidth = Math.min(heartCount, HEARTS_PER_ROW) * HEART_SPACING + (HEART_SIZE - HEART_SPACING);
-        int heartsHeight = heartRows * HEART_ROW_HEIGHT;
+        int heartsWidth = showHearts
+                ? Math.min(heartCount, HEARTS_PER_ROW) * HEART_SPACING + (HEART_SIZE - HEART_SPACING)
+                : 0;
+        int heartsHeight = showHearts ? heartRows * HEART_ROW_HEIGHT : 0;
 
         ItemStack armor = info.armor();
-        boolean hasArmor = !armor.isEmpty();
+        boolean showArmor = config.showArmor && !armor.isEmpty();
         String durability = "";
-        if (hasArmor && armor.isDamageableItem()) {
+        if (showArmor && armor.isDamageableItem()) {
             int remaining = armor.getMaxDamage() - armor.getDamageValue();
             durability = remaining + " / " + armor.getMaxDamage();
         }
-        int armorRowWidth = hasArmor ? ITEM_SIZE + ITEM_TEXT_GAP + font.width(durability) : 0;
-        int armorRowHeight = hasArmor ? ITEM_SIZE + SECTION_GAP : 0;
+        int armorRowWidth = showArmor ? ITEM_SIZE + ITEM_TEXT_GAP + font.width(durability) : 0;
 
-        int lineHeight = font.lineHeight + LINE_SPACING;
+        boolean showState = config.showState;
         int titleRowWidth = font.width(title) + (hasOwner ? OWNER_GAP + font.width(owner) : 0);
         int contentWidth = Math.max(titleRowWidth,
-                Math.max(armorRowWidth, Math.max(heartsWidth, font.width(state))));
-        int contentHeight = lineHeight + heartsHeight + SECTION_GAP + armorRowHeight + font.lineHeight;
+                Math.max(armorRowWidth, Math.max(heartsWidth, showState ? font.width(state) : 0)));
+
+        int contentHeight = font.lineHeight;
+        if (showHearts)
+            contentHeight += SECTION_GAP + heartsHeight;
+        if (showArmor)
+            contentHeight += SECTION_GAP + ITEM_SIZE;
+        if (showState)
+            contentHeight += SECTION_GAP + font.lineHeight;
 
         int boxWidth = contentWidth + padding * 2;
         int boxHeight = contentHeight + padding * 2;
@@ -91,7 +99,7 @@ public final class WolfPanelRenderer {
         int screenWidth = mc.getWindow().getGuiScaledWidth();
         int screenHeight = mc.getWindow().getGuiScaledHeight();
 
-        int boxX = Math.round(p.x()) + PANEL_OFFSET_X;
+        int boxX = Math.round(p.x()) + config.panelOffsetX;
         int boxY = Math.round(p.y()) - boxHeight / 2;
         boxX = Math.max(SCREEN_MARGIN, Math.min(boxX, screenWidth - boxWidth - SCREEN_MARGIN));
         boxY = Math.max(SCREEN_MARGIN, Math.min(boxY, screenHeight - boxHeight - SCREEN_MARGIN));
@@ -105,30 +113,37 @@ public final class WolfPanelRenderer {
         if (hasOwner) {
             g.text(font, owner, textX + font.width(title) + OWNER_GAP, y, style.ownerColor(), true);
         }
-        y += lineHeight;
+        y += font.lineHeight;
 
-        for (int i = 0; i < heartCount; i++) {
-            int hx = textX + (i % HEARTS_PER_ROW) * HEART_SPACING;
-            int hy = y + (i / HEARTS_PER_ROW) * HEART_ROW_HEIGHT;
-            drawSprite(g, HEART_CONTAINER, hx, hy);
-            if (hp >= (i + 1) * HEALTH_PER_HEART) {
-                drawSprite(g, HEART_FULL, hx, hy);
-            } else if (hp == i * HEALTH_PER_HEART + 1) {
-                drawSprite(g, HEART_HALF, hx, hy);
+        if (config.showHearts) {
+            y += SECTION_GAP;
+            for (int i = 0; i < heartCount; i++) {
+                int hx = textX + (i % HEARTS_PER_ROW) * HEART_SPACING;
+                int hy = y + (i / HEARTS_PER_ROW) * HEART_ROW_HEIGHT;
+                drawSprite(g, HEART_CONTAINER, hx, hy);
+                if (hp >= (i + 1) * HEALTH_PER_HEART) {
+                    drawSprite(g, HEART_FULL, hx, hy);
+                } else if (hp == i * HEALTH_PER_HEART + 1) {
+                    drawSprite(g, HEART_HALF, hx, hy);
+                }
             }
+            y += heartsHeight;
         }
-        y += heartsHeight + SECTION_GAP;
 
-        if (hasArmor) {
+        if (showArmor) {
+            y += SECTION_GAP;
             g.item(armor, textX, y);
             if (!durability.isEmpty()) {
                 int textY = y + (ITEM_SIZE - font.lineHeight) / 2;
                 g.text(font, durability, textX + ITEM_SIZE + ITEM_TEXT_GAP, textY, style.infoColor(), true);
             }
-            y += armorRowHeight;
+            y += ITEM_SIZE;
         }
 
-        g.text(font, state, textX, y, style.infoColor(), true);
+        if (config.showState) {
+            y += SECTION_GAP;
+            g.text(font, state, textX, y, style.infoColor(), true);
+        }
     }
 
     private static void drawSprite(GuiGraphicsExtractor g, Identifier sprite, int x, int y) {

@@ -7,6 +7,8 @@ public final class PanelStyles {
     }
 
     public static PanelStyle current() {
-        return VANILLA;
+        return switch (HowIsMyWolfConfig.get().style) {
+            case VANILLA -> VANILLA;
+        };
     }
 }
