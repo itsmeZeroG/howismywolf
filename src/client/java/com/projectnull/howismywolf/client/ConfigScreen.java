@@ -17,60 +17,60 @@ public final class ConfigScreen {
 
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(parent)
-                .setTitle(Component.translatable("config.how-is-my-wolf.title"))
+                .setTitle(Component.translatable("config.howismywolf.title"))
                 .setSavingRunnable(HowIsMyWolfConfig::save);
 
         ConfigEntryBuilder entries = builder.entryBuilder();
         ConfigCategory general = builder
-                .getOrCreateCategory(Component.translatable("config.how-is-my-wolf.category.general"));
+                .getOrCreateCategory(Component.translatable("config.howismywolf.category.general"));
 
         general.addEntry(entries
-                .startBooleanToggle(Component.translatable("config.how-is-my-wolf.show_owner"), config.showOwner)
+                .startBooleanToggle(Component.translatable("config.howismywolf.show_owner"), config.showOwner)
                 .setDefaultValue(true)
                 .setSaveConsumer(value -> config.showOwner = value)
                 .build());
 
         general.addEntry(entries
-                .startBooleanToggle(Component.translatable("config.how-is-my-wolf.show_hearts"), config.showHearts)
+                .startBooleanToggle(Component.translatable("config.howismywolf.show_hearts"), config.showHearts)
                 .setDefaultValue(true)
                 .setSaveConsumer(value -> config.showHearts = value)
                 .build());
 
         general.addEntry(entries
-                .startBooleanToggle(Component.translatable("config.how-is-my-wolf.show_armor"), config.showArmor)
+                .startBooleanToggle(Component.translatable("config.howismywolf.show_armor"), config.showArmor)
                 .setDefaultValue(true)
                 .setSaveConsumer(value -> config.showArmor = value)
                 .build());
 
         general.addEntry(entries
-                .startBooleanToggle(Component.translatable("config.how-is-my-wolf.show_state"), config.showState)
+                .startBooleanToggle(Component.translatable("config.howismywolf.show_state"), config.showState)
                 .setDefaultValue(true)
                 .setSaveConsumer(value -> config.showState = value)
                 .build());
 
         general.addEntry(entries
-                .startIntSlider(Component.translatable("config.how-is-my-wolf.linger"),
+                .startIntSlider(Component.translatable("config.howismywolf.linger"),
                         config.lingerTicks, 0, 100)
                 .setDefaultValue(15)
                 .setTextGetter(ticks -> Component.literal(String.format(Locale.ROOT, "%.2f s", ticks / 20.0f)))
-                .setTooltip(Component.translatable("config.how-is-my-wolf.linger.tooltip"))
+                .setTooltip(Component.translatable("config.howismywolf.linger.tooltip"))
                 .setSaveConsumer(value -> config.lingerTicks = value)
                 .build());
 
         general.addEntry(entries
-                .startIntSlider(Component.translatable("config.how-is-my-wolf.panel_offset_x"), config.panelOffsetX, 0,
+                .startIntSlider(Component.translatable("config.howismywolf.panel_offset_x"), config.panelOffsetX, 0,
                         128)
                 .setDefaultValue(32)
-                .setTooltip(Component.translatable("config.how-is-my-wolf.panel_offset_x.tooltip"))
+                .setTooltip(Component.translatable("config.howismywolf.panel_offset_x.tooltip"))
                 .setSaveConsumer(value -> config.panelOffsetX = value)
                 .build());
 
         general.addEntry(entries
-                .startEnumSelector(Component.translatable("config.how-is-my-wolf.style"),
+                .startEnumSelector(Component.translatable("config.howismywolf.style"),
                         HowIsMyWolfConfig.StyleType.class, config.style)
                 .setDefaultValue(HowIsMyWolfConfig.StyleType.DYE_BORDER)
                 .setEnumNameProvider(value -> Component.translatable(
-                        "config.how-is-my-wolf.style." + value.name().toLowerCase(Locale.ROOT)))
+                        "config.howismywolf.style." + value.name().toLowerCase(Locale.ROOT)))
                 .setSaveConsumer(value -> config.style = value)
                 .build());
 

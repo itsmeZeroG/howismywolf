@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "how-is-my-wolf",
+  "id": "howismywolf",
   "version": "${version}",
   "name": "How Is My Wolf?",
   "description": "A mod which allows you to see the stats of your wolves. Inspired by 'Your Dog Stats'.",
@@ -10,7 +10,7 @@
     "issues": "https://github.com/itsmeZeroG/how-is-your-wolf/issues/"
   },
   "license": "GPL-3.0-or-later",
-  "icon": "assets/how-is-my-wolf/icon.png",
+  "icon": "assets/howismywolf/icon.png",
   "environment": "client",
   "entrypoints": {
     "main": ["com.projectnull.howismywolf.HowIsMyWolf"],
@@ -18,9 +18,9 @@
     "modmenu": ["com.projectnull.howismywolf.client.ModMenuIntegration"]
   },
   "mixins": [
-    "how-is-my-wolf.mixins.json",
+    "howismywolf.mixins.json",
     {
-      "config": "how-is-my-wolf.client.mixins.json",
+      "config": "howismywolf.client.mixins.json",
       "environment": "client"
     }
   ],
@@ -35,3 +35,4 @@
     "modmenu": "*"
   }
 }
+

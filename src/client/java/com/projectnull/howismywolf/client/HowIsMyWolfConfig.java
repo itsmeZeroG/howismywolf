@@ -27,7 +27,7 @@ public final class HowIsMyWolfConfig {
     public StyleType style = StyleType.DYE_BORDER;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final Path PATH = FabricLoader.getInstance().getConfigDir().resolve("how-is-my-wolf.json");
+    private static final Path PATH = FabricLoader.getInstance().getConfigDir().resolve("howismywolf.json");
     private static HowIsMyWolfConfig instance = new HowIsMyWolfConfig();
 
     public static HowIsMyWolfConfig get() {
