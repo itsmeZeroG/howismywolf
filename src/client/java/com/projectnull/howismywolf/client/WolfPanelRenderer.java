@@ -11,12 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 public final class WolfPanelRenderer {
-    private static final int PANEL_BACKGROUND = 0xF0100010;
-    private static final int PANEL_BORDER = 0xFF3C0C8C;
-    private static final int TITLE_COLOR = 0xFFFFFFFF;
-    private static final int OWNER_COLOR = 0xFF8FA3B8;
-    private static final int INFO_TEXT_COLOR = 0xFFAAAAAA;
-
     private static final Identifier HEART_CONTAINER = Identifier.withDefaultNamespace("hud/heart/container");
     private static final Identifier HEART_FULL = Identifier.withDefaultNamespace("hud/heart/full");
     private static final Identifier HEART_HALF = Identifier.withDefaultNamespace("hud/heart/half");
@@ -30,7 +24,6 @@ public final class WolfPanelRenderer {
     private static final int ITEM_SIZE = 16;
     private static final int ITEM_TEXT_GAP = 4;
 
-    private static final int PANEL_PADDING = 4;
     private static final int LINE_SPACING = 2;
     private static final int SECTION_GAP = 2;
     private static final int OWNER_GAP = 6;
@@ -51,6 +44,9 @@ public final class WolfPanelRenderer {
 
         Minecraft mc = Minecraft.getInstance();
         Font font = mc.font;
+
+        PanelStyle style = PanelStyles.current();
+        int padding = style.padding();
 
         String title = info.name();
         String owner = info.ownerName().isEmpty() ? "" : "(" + info.ownerName() + ")";
@@ -83,8 +79,8 @@ public final class WolfPanelRenderer {
                 Math.max(armorRowWidth, Math.max(heartsWidth, font.width(state))));
         int contentHeight = lineHeight + heartsHeight + SECTION_GAP + armorRowHeight + font.lineHeight;
 
-        int boxWidth = contentWidth + PANEL_PADDING * 2;
-        int boxHeight = contentHeight + PANEL_PADDING * 2;
+        int boxWidth = contentWidth + padding * 2;
+        int boxHeight = contentHeight + padding * 2;
 
         float partialTick = delta.getGameTimeDeltaPartialTick(false);
         Vec3 anchor = wolf.getPosition(partialTick).add(0, wolf.getBbHeight() * ANCHOR_HEIGHT_FRACTION, 0);
@@ -100,15 +96,14 @@ public final class WolfPanelRenderer {
         boxX = Math.max(SCREEN_MARGIN, Math.min(boxX, screenWidth - boxWidth - SCREEN_MARGIN));
         boxY = Math.max(SCREEN_MARGIN, Math.min(boxY, screenHeight - boxHeight - SCREEN_MARGIN));
 
-        g.fill(boxX, boxY, boxX + boxWidth, boxY + boxHeight, PANEL_BACKGROUND);
-        g.outline(boxX, boxY, boxWidth, boxHeight, PANEL_BORDER);
+        style.drawBackground(g, boxX, boxY, boxWidth, boxHeight);
 
-        int textX = boxX + PANEL_PADDING;
-        int y = boxY + PANEL_PADDING;
+        int textX = boxX + padding;
+        int y = boxY + padding;
 
-        g.text(font, title, textX, y, TITLE_COLOR, true);
+        g.text(font, title, textX, y, style.titleColor(), true);
         if (hasOwner) {
-            g.text(font, owner, textX + font.width(title) + OWNER_GAP, y, OWNER_COLOR, true);
+            g.text(font, owner, textX + font.width(title) + OWNER_GAP, y, style.ownerColor(), true);
         }
         y += lineHeight;
 
@@ -128,12 +123,12 @@ public final class WolfPanelRenderer {
             g.item(armor, textX, y);
             if (!durability.isEmpty()) {
                 int textY = y + (ITEM_SIZE - font.lineHeight) / 2;
-                g.text(font, durability, textX + ITEM_SIZE + ITEM_TEXT_GAP, textY, INFO_TEXT_COLOR, true);
+                g.text(font, durability, textX + ITEM_SIZE + ITEM_TEXT_GAP, textY, style.infoColor(), true);
             }
             y += armorRowHeight;
         }
 
-        g.text(font, state, textX, y, INFO_TEXT_COLOR, true);
+        g.text(font, state, textX, y, style.infoColor(), true);
     }
 
     private static void drawSprite(GuiGraphicsExtractor g, Identifier sprite, int x, int y) {
