@@ -9,6 +9,8 @@
   "config.how-is-my-wolf.linger.tooltip": "How long the panel stays after you look away. 0 hides it immediately. The slider moves in steps of 0.05 s (one game tick).",
   "config.how-is-my-wolf.panel_offset_x": "Panel distance from wolf",
   "config.how-is-my-wolf.panel_offset_x.tooltip": "How far to the right of the wolf the panel appears, in pixels.",
-  "config.how-is-my-wolf.style": "Panel style"
+  "config.how-is-my-wolf.style": "Panel style",
+  "config.how-is-my-wolf.style.vanilla": "Vanilla",
+  "config.how-is-my-wolf.style.dye_border": "Dye-colored border"
 }
 

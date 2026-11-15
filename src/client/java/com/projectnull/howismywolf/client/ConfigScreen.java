@@ -68,7 +68,9 @@ public final class ConfigScreen {
         general.addEntry(entries
                 .startEnumSelector(Component.translatable("config.how-is-my-wolf.style"),
                         HowIsMyWolfConfig.StyleType.class, config.style)
-                .setDefaultValue(HowIsMyWolfConfig.StyleType.VANILLA)
+                .setDefaultValue(HowIsMyWolfConfig.StyleType.DYE_BORDER)
+                .setEnumNameProvider(value -> Component.translatable(
+                        "config.how-is-my-wolf.style." + value.name().toLowerCase(Locale.ROOT)))
                 .setSaveConsumer(value -> config.style = value)
                 .build());
 

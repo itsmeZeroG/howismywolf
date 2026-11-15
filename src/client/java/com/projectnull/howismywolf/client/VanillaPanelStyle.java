@@ -27,7 +27,7 @@ public final class VanillaPanelStyle implements PanelStyle {
     }
 
     @Override
-    public void drawBackground(GuiGraphicsExtractor g, int x, int y, int width, int height) {
+    public void drawBackground(GuiGraphicsExtractor g, int x, int y, int width, int height, WolfInfo info) {
         TooltipRenderUtil.extractTooltipBackground(g, x + PADDING, y + PADDING, width - PADDING * 2,
                 height - PADDING * 2, null);
     }

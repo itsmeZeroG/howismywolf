@@ -15,7 +15,7 @@ import net.fabricmc.loader.api.FabricLoader;
 
 public final class HowIsMyWolfConfig {
     public enum StyleType {
-        VANILLA
+        VANILLA, DYE_BORDER
     };
 
     public boolean showOwner = true;
@@ -24,7 +24,7 @@ public final class HowIsMyWolfConfig {
     public boolean showState = true;
     public int lingerTicks = 15;// 0.75 s;
     public int panelOffsetX = 32;
-    public StyleType style = StyleType.VANILLA;
+    public StyleType style = StyleType.DYE_BORDER;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Path PATH = FabricLoader.getInstance().getConfigDir().resolve("how-is-my-wolf.json");

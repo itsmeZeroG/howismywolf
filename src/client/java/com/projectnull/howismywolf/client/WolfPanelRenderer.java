@@ -104,7 +104,7 @@ public final class WolfPanelRenderer {
         boxX = Math.max(SCREEN_MARGIN, Math.min(boxX, screenWidth - boxWidth - SCREEN_MARGIN));
         boxY = Math.max(SCREEN_MARGIN, Math.min(boxY, screenHeight - boxHeight - SCREEN_MARGIN));
 
-        style.drawBackground(g, boxX, boxY, boxWidth, boxHeight);
+        style.drawBackground(g, boxX, boxY, boxWidth, boxHeight, info);
 
         int textX = boxX + padding;
         int y = boxY + padding;

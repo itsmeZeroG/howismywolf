@@ -11,5 +11,5 @@ public interface PanelStyle {
 
     int infoColor();
 
-    void drawBackground(GuiGraphicsExtractor g, int x, int y, int width, int height);
+    void drawBackground(GuiGraphicsExtractor g, int x, int y, int width, int height, WolfInfo info);
 }
