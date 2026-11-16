@@ -1,4 +1,4 @@
-package com.projectnull.howismywolf.client;
+package itsmezerog.howismywolf.client;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import com.projectnull.howismywolf.HowIsMyWolf;
+import itsmezerog.howismywolf.HowIsMyWolf;
 
 import net.fabricmc.loader.api.FabricLoader;
 

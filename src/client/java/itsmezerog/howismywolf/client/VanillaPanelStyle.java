@@ -1,4 +1,4 @@
-package com.projectnull.howismywolf.client;
+package itsmezerog.howismywolf.client;
 
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;

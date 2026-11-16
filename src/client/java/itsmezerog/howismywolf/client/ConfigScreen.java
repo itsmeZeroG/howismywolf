@@ -1,4 +1,4 @@
-package com.projectnull.howismywolf.client;
+package itsmezerog.howismywolf.client;
 
 import java.util.Locale;
 

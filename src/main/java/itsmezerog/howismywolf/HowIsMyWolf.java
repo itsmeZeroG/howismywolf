@@ -1,4 +1,4 @@
-package com.projectnull.howismywolf;
+package itsmezerog.howismywolf;
 
 import net.fabricmc.api.ModInitializer;
 

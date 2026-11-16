@@ -1,4 +1,4 @@
-package com.projectnull.howismywolf.client;
+package itsmezerog.howismywolf.client;
 
 public final class PanelStyles {
     private static final PanelStyle VANILLA = new VanillaPanelStyle();

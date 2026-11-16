@@ -14,9 +14,9 @@
   "icon": "assets/howismywolf/icon.png",
   "environment": "client",
   "entrypoints": {
-    "main": ["com.projectnull.howismywolf.HowIsMyWolf"],
-    "client": ["com.projectnull.howismywolf.client.HowIsMyWolfClient"],
-    "modmenu": ["com.projectnull.howismywolf.client.ModMenuIntegration"]
+    "main": ["itsmezerog.howismywolf.HowIsMyWolf"],
+    "client": ["itsmezerog.howismywolf.client.HowIsMyWolfClient"],
+    "modmenu": ["itsmezerog.howismywolf.client.ModMenuIntegration"]
   },
   "depends": {
     "fabricloader": ">=0.20.1",
