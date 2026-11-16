@@ -6,8 +6,9 @@
   "description": "A mod which allows you to see the stats of your wolves. Inspired by 'Your Dog Stats'.",
   "authors": ["itsmeZeroG"],
   "contact": {
-    "homepage": "https://github.com/itsmeZeroG/how-is-your-wolf",
-    "issues": "https://github.com/itsmeZeroG/how-is-your-wolf/issues/"
+    "homepage": "https://modrinth.com/mod/howismywolf",
+    "sources": "https://github.com/itsmeZeroG/howismywolf",
+    "issues": "https://github.com/itsmeZeroG/howismywolf/issues/"
   },
   "license": "GPL-3.0-or-later",
   "icon": "assets/howismywolf/icon.png",
@@ -17,13 +18,6 @@
     "client": ["com.projectnull.howismywolf.client.HowIsMyWolfClient"],
     "modmenu": ["com.projectnull.howismywolf.client.ModMenuIntegration"]
   },
-  "mixins": [
-    "howismywolf.mixins.json",
-    {
-      "config": "howismywolf.client.mixins.json",
-      "environment": "client"
-    }
-  ],
   "depends": {
     "fabricloader": ">=0.20.1",
     "minecraft": "~26.3",
