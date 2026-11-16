@@ -16,7 +16,7 @@
   "entrypoints": {
     "main": ["itsmezerog.howismywolf.HowIsMyWolf"],
     "client": ["itsmezerog.howismywolf.client.HowIsMyWolfClient"],
-    "modmenu": ["itsmezerog.howismywolf.client.ModMenuIntegration"]
+    "modmenu": ["itsmezerog.howismywolf.client.config.ModMenuIntegration"]
   },
   "depends": {
     "fabricloader": ">=0.20.1",

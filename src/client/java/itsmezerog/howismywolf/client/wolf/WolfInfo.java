@@ -1,6 +1,4 @@
-package itsmezerog.howismywolf.client;
-
-import itsmezerog.howismywolf.HowIsMyWolf;
+package itsmezerog.howismywolf.client.wolf;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.LivingEntity;

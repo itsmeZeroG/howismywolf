@@ -1,4 +1,10 @@
-package itsmezerog.howismywolf.client;
+package itsmezerog.howismywolf.client.hud;
+
+import itsmezerog.howismywolf.client.config.ModConfig;
+import itsmezerog.howismywolf.client.hud.style.PanelStyle;
+import itsmezerog.howismywolf.client.hud.style.PanelStyles;
+import itsmezerog.howismywolf.client.wolf.WolfInfo;
+import itsmezerog.howismywolf.client.wolf.WolfTracker;
 
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -34,8 +40,8 @@ public final class WolfPanelRenderer {
     }
 
     public static void render(GuiGraphicsExtractor g, DeltaTracker delta) {
-        WolfInfo info = HowIsMyWolfClient.currentWolfInfo();
-        Wolf wolf = HowIsMyWolfClient.currentWolf();
+        WolfInfo info = WolfTracker.info();
+        Wolf wolf = WolfTracker.wolf();
 
         if (info == null || wolf == null)
             return;
@@ -43,7 +49,7 @@ public final class WolfPanelRenderer {
         Minecraft mc = Minecraft.getInstance();
         Font font = mc.font;
 
-        HowIsMyWolfConfig config = HowIsMyWolfConfig.get();
+        ModConfig config = ModConfig.get();
         PanelStyle style = PanelStyles.current();
         int padding = style.padding();
 
@@ -115,7 +121,7 @@ public final class WolfPanelRenderer {
         }
         y += font.lineHeight;
 
-        if (config.showHearts) {
+        if (showHearts) {
             y += SECTION_GAP;
             for (int i = 0; i < heartCount; i++) {
                 int hx = textX + (i % HEARTS_PER_ROW) * HEART_SPACING;
@@ -140,7 +146,7 @@ public final class WolfPanelRenderer {
             y += ITEM_SIZE;
         }
 
-        if (config.showState) {
+        if (showState) {
             y += SECTION_GAP;
             g.text(font, state, textX, y, style.infoColor(), true);
         }

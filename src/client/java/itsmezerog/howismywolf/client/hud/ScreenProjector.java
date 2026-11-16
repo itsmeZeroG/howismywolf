@@ -1,4 +1,4 @@
-package itsmezerog.howismywolf.client;
+package itsmezerog.howismywolf.client.hud;
 
 import org.joml.Quaternionf;
 import org.joml.Vector3f;

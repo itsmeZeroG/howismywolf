@@ -1,4 +1,6 @@
-package itsmezerog.howismywolf.client;
+package itsmezerog.howismywolf.client.hud.style;
+
+import itsmezerog.howismywolf.client.config.ModConfig;
 
 public final class PanelStyles {
     private static final PanelStyle VANILLA = new VanillaPanelStyle();
@@ -8,7 +10,7 @@ public final class PanelStyles {
     }
 
     public static PanelStyle current() {
-        return switch (HowIsMyWolfConfig.get().style) {
+        return switch (ModConfig.get().style) {
             case VANILLA -> VANILLA;
             case DYE_BORDER -> DYE_BORDER;
         };

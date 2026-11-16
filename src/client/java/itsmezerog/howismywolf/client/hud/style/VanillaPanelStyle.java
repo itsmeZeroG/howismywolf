@@ -1,4 +1,6 @@
-package itsmezerog.howismywolf.client;
+package itsmezerog.howismywolf.client.hud.style;
+
+import itsmezerog.howismywolf.client.wolf.WolfInfo;
 
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;

@@ -1,4 +1,6 @@
-package itsmezerog.howismywolf.client;
+package itsmezerog.howismywolf.client.config;
+
+import itsmezerog.howismywolf.HowIsMyWolf;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -9,11 +11,10 @@ import java.nio.file.Path;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import itsmezerog.howismywolf.HowIsMyWolf;
 
 import net.fabricmc.loader.api.FabricLoader;
 
-public final class HowIsMyWolfConfig {
+public final class ModConfig {
     public enum StyleType {
         VANILLA, DYE_BORDER
     };
@@ -28,16 +29,16 @@ public final class HowIsMyWolfConfig {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Path PATH = FabricLoader.getInstance().getConfigDir().resolve("howismywolf.json");
-    private static HowIsMyWolfConfig instance = new HowIsMyWolfConfig();
+    private static ModConfig instance = new ModConfig();
 
-    public static HowIsMyWolfConfig get() {
+    public static ModConfig get() {
         return instance;
     }
 
     public static void load() {
         if (Files.exists(PATH)) {
             try (Reader reader = Files.newBufferedReader(PATH)) {
-                HowIsMyWolfConfig loaded = GSON.fromJson(reader, HowIsMyWolfConfig.class);
+                ModConfig loaded = GSON.fromJson(reader, ModConfig.class);
                 if (loaded != null) {
                     instance = loaded;
                 }
