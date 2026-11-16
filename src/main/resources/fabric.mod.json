@@ -1,32 +1,32 @@
 {
   "schemaVersion": 1,
-  "id": "how-is-my-wolf",
+  "id": "howismywolf",
   "version": "${version}",
   "name": "How Is My Wolf?",
   "description": "A mod which allows you to see the stats of your wolves. Inspired by 'Your Dog Stats'.",
   "authors": ["itsmeZeroG"],
   "contact": {
-    "homepage": "https://github.com/itsmeZeroG/how-is-your-wolf",
-    "issues": "https://github.com/itsmeZeroG/how-is-your-wolf/issues/"
+    "homepage": "https://modrinth.com/mod/howismywolf",
+    "sources": "https://github.com/itsmeZeroG/howismywolf",
+    "issues": "https://github.com/itsmeZeroG/howismywolf/issues/"
   },
   "license": "GPL-3.0-or-later",
-  "icon": "assets/how-is-my-wolf/icon.png",
+  "icon": "assets/howismywolf/icon.png",
   "environment": "client",
   "entrypoints": {
-    "main": ["com.projectnull.howismywolf.HowIsMyWolf"],
-    "client": ["com.projectnull.howismywolf.client.HowIsMyWolfClient"]
+    "main": ["itsmezerog.howismywolf.HowIsMyWolf"],
+    "client": ["itsmezerog.howismywolf.client.HowIsMyWolfClient"],
+    "modmenu": ["itsmezerog.howismywolf.client.config.ModMenuIntegration"]
   },
-  "mixins": [
-    "how-is-my-wolf.mixins.json",
-    {
-      "config": "how-is-my-wolf.client.mixins.json",
-      "environment": "client"
-    }
-  ],
   "depends": {
     "fabricloader": ">=0.20.1",
     "minecraft": "~26.3",
     "java": ">=25",
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "cloth-config": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
   }
 }
+
